@@ -1,22 +1,31 @@
-import { encode, tag, withCrcTag } from '../lib/TagUtils'
+import { CreditTransferId, PayloadFormat, POIMethod, AID, CountryCode, CurrencyCode, BotTag } from '../types';
+import { encode, tag, withCrcTag, formatTarget } from '../lib'
 
-export function generate(msisdn: string, amount?: number) {
-  let payload = [
-    tag('00', '01'), // (QR Version 1)
-    tag('01', !amount ? '11' : '12'), // (11 multiple, 12 once)
-    tag('29', encode([
-      tag('00', 'A000000677010111'), // merchant presented qr
-      tag('01', msisdn),   // (option A) msisdn
-      // tag('02', '?'),  // (option B) nat id / tax id
-      // tag('03', '?'),  // (option C) ewallet id (140 = TrueMoney Co., Ltd.)
+export function generate(targetId: string, amount?: number) {
+  const receiverType = (
+    targetId.length >= 15 ? (
+      CreditTransferId.E_WALLET_ID
+    ) : targetId.length >= 13 ? (
+      CreditTransferId.TAX_ID
+    ) : (
+      CreditTransferId.PHONE_NUMBER
+    )
+  )
+
+  const payload = [
+    tag(BotTag.PAYLOAD_FORMAT, PayloadFormat.EMV_PRESENTED),
+    tag(BotTag.POI_METHOD, !amount ? POIMethod.STATIC : POIMethod.DYNAMIC),
+    tag(BotTag.CREDIT_TRANSFER, encode([
+      tag(CreditTransferId.AID, AID.MERCHANT_PRESENTED),
+      tag(receiverType, formatTarget(targetId)),
     ])),
-    tag('53', '764'), // iso currency code (764 = THB)
-    tag('58', 'TH')   // country code (TH)
+    tag(BotTag.COUNTRY_CODE, CountryCode.TH),
+    tag(BotTag.TRANSACTION_CURRENCY, CurrencyCode.THB)
   ]
 
   if (amount) {
-    payload.push(tag('54',  amount.toFixed(2))) // transaction amount (X.XX)
+    payload.push(tag(BotTag.TRANSACTION_AMOUNT, amount.toFixed(2))) // transaction amount (X.XX)
   }
 
-  return withCrcTag(encode(payload), '63')
+  return withCrcTag(encode(payload), BotTag.CRC)
 }
