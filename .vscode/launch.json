@@ -1,0 +1,19 @@
+{
+	"version": "1.0.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Debug",
+			"runtimeExecutable": "pnpm",
+			"cwd": "${workspaceFolder}",
+			"runtimeArgs": [
+				"dev"
+			],
+			"resolveSourceMapLocations": [
+				"${workspaceFolder}/**",
+				"!**/node_modules/**"
+			]
+		}
+	]
+}
