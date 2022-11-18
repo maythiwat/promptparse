@@ -1,5 +1,6 @@
 import { CreditTransferId, PayloadFormat, POIMethod, AID, CountryCode, CurrencyCode, BotTag } from '../types';
-import { encode, tag, withCrcTag, formatTarget } from '../lib'
+import { encode, tag, withCrcTag } from '../lib/TagUtils'
+import { formatTarget } from '../utils/Formatter'
 
 export function generate(targetId: string, amount?: number) {
   const receiverType = (

@@ -1,5 +1,5 @@
 import { BillTransferId, BotTag, PayloadFormat, POIMethod, AID, CurrencyCode, CountryCode } from '../types';
-import { encode, tag, withCrcTag } from '../lib'
+import { encode, tag, withCrcTag } from '../lib/TagUtils'
 
 export function generate(billerId: string, amount: number, ref1: string, ref2?: string) {
 
