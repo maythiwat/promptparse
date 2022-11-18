@@ -2,7 +2,6 @@ import { BillTransferId, BotTag, PayloadFormat, POIMethod, AID, CurrencyCode, Co
 import { encode, tag, withCrcTag } from '../lib/TagUtils'
 
 export function generate(billerId: string, amount: number, ref1: string, ref2?: string) {
-
   const billPayload = [
     tag(BillTransferId.AID, AID.DOMESTIC),
     tag(BillTransferId.BILLER_ID, billerId),
