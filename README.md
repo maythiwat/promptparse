@@ -3,6 +3,11 @@
 # PromptParse
 💸 PromptPay (and EMVCo-compatible) QR Code Payload Parser and Generator
 
+## Features
+- Parses PromptPay or other EMVCo-compatible QR Code Data
+- Construct TLV Tags into QR Code Data (uses to create QR Code)
+- Pre-made generators for PromptPay and other Thai QR Standards (and non-standards)
+
 ## References
 - [EMV QR Code](https://www.emvco.com/emv-technologies/qrcodes/)
 - [Thai QR Payment Standard](https://www.bot.or.th/Thai/PaymentSystems/StandardPS/Documents/ThaiQRCode_Payment_Standard.pdf)
