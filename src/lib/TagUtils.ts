@@ -1,4 +1,4 @@
-import { crc16xmodem } from 'crc'
+import { crc16xmodem } from '../utils'
 import type TLVTag from './TLVTag'
 
 /**
