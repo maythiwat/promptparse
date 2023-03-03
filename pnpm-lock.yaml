@@ -2,13 +2,9 @@ lockfileVersion: 5.4
 
 specifiers:
   '@types/node': ^18.11.9
-  crc: ^4.1.1
   rimraf: ^3.0.2
   ts-node: ^10.9.1
   typescript: ^4.8.4
-
-dependencies:
-  crc: 4.1.1
 
 devDependencies:
   '@types/node': 18.11.9
@@ -90,13 +86,6 @@ packages:
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
-
-  /crc/4.1.1:
-    resolution: {integrity: sha512-2U3ZqJ2phJl9ANuP2q5VS53LMpNmYU9vcpmh6nutJmsqUREhtWpTRh9yYxG7sDg3xkwaEEXytSeffTxw4cgwPg==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      buffer: '>=6.0.3'
-    dev: false
 
   /create-require/1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
