@@ -32,7 +32,7 @@ const data = [
 ]
 
 // Set CRC Tag ID '63'
-withCrcTag(encode(data), '63') // Retruns '000201010211...'
+withCrcTag(encode(data), '63') // Returns '000201010211...'
 ```
 
 ## References
