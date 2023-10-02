@@ -1,6 +1,4 @@
-## ⚠️ The main branch is currently for v1.0 (WIP, will release soon), if you're looking for current version (v0.x), see the [v0 branch](https://github.com/maythiwat/promptparse/tree/v0)
-
----
+![PromptParse](https://github.com/maythiwat/promptparse/assets/23092256/889e8f80-b1b3-44b2-ace5-ffbbce6e673b)
 
 # PromptParse
 
