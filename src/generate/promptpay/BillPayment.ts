@@ -1,13 +1,27 @@
 import { encode, tag, withCrcTag } from '@/lib/tlv'
 
 interface Config {
+  /** Biller ID (National ID or Tax ID + Suffix) */
   billerId: string
+
+  /** Transaction amount */
   amount?: number
+
+  /** Reference 1 */
   ref1: string
+
+  /** Reference 2 */
   ref2?: string
+
+  /** (Undocumented) Reference 3 */
   ref3?: string
 }
 
+/**
+ * Generate PromptPay Bill Payment (Tag 30) QR Code
+ *
+ * @returns QR Code Payload
+ */
 export function billPayment({ billerId, amount, ref1, ref2, ref3 }: Config) {
   const tag30 = [
     tag('00', 'A000000677010112'),

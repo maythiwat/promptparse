@@ -1,9 +1,16 @@
 import { crc16xmodem } from '@/utils/checksum'
 
 export interface TLVTag {
+  /** Tag ID */
   id: string
+
+  /** Tag Value */
   value: string
+
+  /** Sub Tags */
   subTags?: TLVTag[]
+
+  /** Tag Length */
   length: number
 }
 

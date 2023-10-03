@@ -19,8 +19,13 @@ function encodeTag81(message: string) {
 }
 
 interface Config {
+  /** Mobile number */
   mobileNo: string
+
+  /** Transaction amount */
   amount?: number
+
+  /** Personal message (Tag 81) */
   message?: string
 }
 
@@ -31,7 +36,7 @@ interface Config {
  * just like a regular e-Wallet PromptPay QR
  * but `Personal Message (Tag 81)` will be ignored.
  *
- * @returns QR Instance with TLV Tags
+ * @returns QR Code Payload
  */
 export function truemoney({ mobileNo, amount, message }: Config) {
   const tag29 = encode([

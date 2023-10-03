@@ -1,18 +1,35 @@
 import { encode, tag, withCrcTag } from '@/lib/tlv'
 
 enum ProxyType {
+  /** Mobile number */
   'MSISDN' = '01',
+
+  /** National ID or Tax ID */
   'NATID' = '02',
+
+  /** E-Wallet ID */
   'EWALLETID' = '03',
+
+  /** Bank Account (Reserved) */
   'BANKACC' = '04',
 }
 
 interface Config {
+  /** Proxy type */
   type: keyof typeof ProxyType
+
+  /** Recipient number */
   target: string
+
+  /** Transaction amount */
   amount?: number
 }
 
+/**
+ * Generate PromptPay AnyID (Tag 29) QR Code
+ *
+ * @returns QR Code Payload
+ */
 export function anyId({ type, target, amount }: Config) {
   if (type == 'MSISDN') {
     target = ('0000000000000' + target.replace(/^0/, '66')).slice(-13)

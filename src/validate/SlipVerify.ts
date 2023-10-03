@@ -1,5 +1,11 @@
 import { parse } from '@/lib/parser'
 
+/**
+ * Validate & extract data from Slip Verify QR (for use with Bank Open API)
+ *
+ * @param payload - QR Code Payload
+ * @returns Bank code and Transaction reference or null if payload invalid
+ */
 export function slipVerify(payload: string) {
   const ppqr = parse(payload, true)
 

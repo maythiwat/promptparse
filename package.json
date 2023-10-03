@@ -1,6 +1,6 @@
 {
   "name": "promptparse",
-  "version": "1.0.0-rc",
+  "version": "1.0.0",
   "description": "All-in-one JS library for PromptPay & EMVCo QR Codes",
   "author": "Maythiwat Chomchuen <maythiwat.chom@gmail.com>",
   "license": "MIT",
@@ -9,9 +9,11 @@
     "emvco-qr",
     "promptpay",
     "promptpay-qr",
+    "qr",
     "qrcode",
     "thai-qr-payment",
-    "thai-qr-standard"
+    "thai-qr-standard",
+    "truemoney"
   ],
   "repository": {
     "type": "git",

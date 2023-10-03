@@ -1,7 +1,10 @@
 import { encode, tag, withCrcTag } from '@/lib/tlv'
 
 interface Config {
+  /** Bank code */
   sendingBank: string
+
+  /** Transaction reference */
   transRef: string
 }
 
@@ -10,7 +13,7 @@ interface Config {
  *
  * This also called "Mini-QR" that embedded in slip used for verify transactions
  *
- * @returns QR Instance with TLV Tags
+ * @returns QR Code Payload
  */
 export function slipVerify({ sendingBank, transRef }: Config) {
   const payload = [
