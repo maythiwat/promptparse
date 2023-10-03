@@ -1,8 +1,10 @@
 ![PromptParse](https://github.com/maythiwat/promptparse/assets/23092256/889e8f80-b1b3-44b2-ace5-ffbbce6e673b)
 
-# PromptParse
+# PromptParse [![npm version](https://badge.fury.io/js/promptparse.svg)](https://badge.fury.io/js/promptparse)
 
-All-in-one JS library for PromptPay & EMVCo QR Codes
+"All-in-one JS library for PromptPay & EMVCo QR Codes"
+
+No dependency & Cross-platform. You can use it anywhere (Node.js, Deno, Bun), even in the browser!
 
 ## Features
 
@@ -10,6 +12,83 @@ All-in-one JS library for PromptPay & EMVCo QR Codes
 - **Generate** &mdash; QR Code data from pre-made templates (for example: PromptPay AnyID, PromptPay Bill Payment, TrueMoney, etc.)
 - **Manipulate** &mdash; any values from parsed QR Code data (for example: transfer amount, account number) and encodes back into QR Code data
 - **Validate** &mdash; checksum and data structure for known QR Code formats (for example: Slip Verify API Mini QR)
+
+## Usage
+
+### Parsing data and get value from tag
+```ts
+import { parse } from 'promptparse'
+
+// Example data
+const ppqr = parse('000201010211...')
+
+// Get Value of Tag ID '00'
+ppqr.getTagValue('00') // Returns '01'
+```
+
+### Build QR data and append CRC tag
+```ts
+import { encode, tag, withCrcTag } from 'promptparse'
+
+// Example data
+const data = [
+  tag('00', '01'),
+  tag('01', '11'),
+  // ...
+]
+
+// Set CRC Tag ID '63'
+withCrcTag(encode(data), '63') // Returns '000201010211...'
+```
+
+### Generate PromptPay Bill Payment QR
+```ts
+import { generate } from 'promptparse'
+
+const payload = generate.billPayment({
+  billerId: '1xxxxxxxxxxxx',
+  amount: 300.00,
+  ref1: 'INV12345'
+})
+
+// TODO: Create QR Code from payload
+```
+
+### Validate & extract data from Slip Verify QR
+```ts
+import { validate } from 'promptparse'
+
+const data = validate.slipVerify('00550006000001...')
+
+if (!data) {
+  console.error('Invalid Payload')
+}
+
+const { sendingBank, transRef } = data
+
+// TODO: Inquiry transaction from Bank Open API
+```
+
+### Use on browser via CDN
+```html
+<script src="https://cdn.jsdelivr.net/npm/promptparse"></script>
+
+<script>
+(function() {
+  // Generate QR code payload (use function from "promptparse" global)
+  const payload = promptparse.generate.truemoney({
+    mobileNo: '08xxxxxxxx',
+    amount: 10.00,
+    message: 'Hello World!'
+  })
+
+  // Quick & dirty way to show QR Code image
+  document.write(
+    `<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${payload}">`
+  )
+})()
+</script>
+```
 
 ## References
 
