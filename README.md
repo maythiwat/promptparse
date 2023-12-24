@@ -16,6 +16,7 @@ No dependency & Cross-platform. You can use it anywhere (Node.js, Deno, Bun), ev
 ## Usage
 
 ### Parsing data and get value from tag
+
 ```ts
 import { parse } from 'promptparse'
 
@@ -27,6 +28,7 @@ ppqr.getTagValue('00') // Returns '01'
 ```
 
 ### Build QR data and append CRC tag
+
 ```ts
 import { encode, tag, withCrcTag } from 'promptparse'
 
@@ -42,19 +44,21 @@ withCrcTag(encode(data), '63') // Returns '000201010211...'
 ```
 
 ### Generate PromptPay Bill Payment QR
+
 ```ts
 import { generate } from 'promptparse'
 
 const payload = generate.billPayment({
   billerId: '1xxxxxxxxxxxx',
-  amount: 300.00,
-  ref1: 'INV12345'
+  amount: 300.0,
+  ref1: 'INV12345',
 })
 
 // TODO: Create QR Code from payload
 ```
 
 ### Validate & extract data from Slip Verify QR
+
 ```ts
 import { validate } from 'promptparse'
 
@@ -69,24 +73,41 @@ const { sendingBank, transRef } = data
 // TODO: Inquiry transaction from Bank Open API
 ```
 
+### Convert BOT Barcode to PromptPay QR Tag 30 (Bill Payment)
+
+```ts
+import { parseBarcode } from 'promptparse'
+
+const botBarcode = parseBarcode('|310109999999901\r...')
+
+if (!botBarcode) {
+  console.error('Invalid Payload')
+}
+
+const payload = botBarcode.toQrTag30()
+
+// TODO: Create QR Code from payload
+```
+
 ### Use on browser via CDN
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/promptparse"></script>
 
 <script>
-(function() {
-  // Generate QR code payload (use function from "promptparse" global)
-  const payload = promptparse.generate.truemoney({
-    mobileNo: '08xxxxxxxx',
-    amount: 10.00,
-    message: 'Hello World!'
-  })
+  ;(function () {
+    // Generate QR code payload (use function from "promptparse" global)
+    const payload = promptparse.generate.truemoney({
+      mobileNo: '08xxxxxxxx',
+      amount: 10.0,
+      message: 'Hello World!',
+    })
 
-  // Quick & dirty way to show QR Code image
-  document.write(
-    `<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${payload}">`
-  )
-})()
+    // Quick & dirty way to show QR Code image
+    document.write(
+      `<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${payload}">`,
+    )
+  })()
 </script>
 ```
 
@@ -95,6 +116,7 @@ const { sendingBank, transRef } = data
 - [EMV QR Code](https://www.emvco.com/emv-technologies/qrcodes/)
 - [Thai QR Payment Standard](https://www.bot.or.th/content/dam/bot/fipcs/documents/FPG/2562/ThaiPDF/25620084.pdf)
 - [Slip Verify API Mini QR Data](https://developer.scb/assets/documents/documentation/qr-payment/extracting-data-from-mini-qr.pdf)
+- [BOT Barcode Standard](https://www.bot.or.th/content/dam/bot/documents/th/our-roles/payment-systems/about-payment-systems/Std_Barcode.pdf)
 
 ## License
 

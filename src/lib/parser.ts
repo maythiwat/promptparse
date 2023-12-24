@@ -1,4 +1,5 @@
-import EMVCoQR from '@/lib/EMVCoQR'
+import { BOTBarcode } from '@/lib/BOTBarcode'
+import { EMVCoQR } from '@/lib/EMVCoQR'
 import { checksum, decode } from '@/lib/tlv'
 
 /**
@@ -41,4 +42,14 @@ export function parse(payload: string, strict = false, subTags = true) {
   }
 
   return new EMVCoQR(payload, tags)
+}
+
+/**
+ * Parse barcode data string (BOT Barcode Standard)
+ *
+ * @param payload - Barcode data string from the scanner
+ * @returns BOT Barcode Instance
+ */
+export function parseBarcode(payload: string) {
+  return BOTBarcode.fromString(payload)
 }

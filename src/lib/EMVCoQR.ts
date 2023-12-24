@@ -1,6 +1,6 @@
 import { type TLVTag, encode, get, withCrcTag } from '@/lib/tlv'
 
-export default class EMVCoQR {
+export class EMVCoQR {
   private payload: string
   private tags: TLVTag[]
 
