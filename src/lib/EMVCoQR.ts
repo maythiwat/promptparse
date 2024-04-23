@@ -21,6 +21,7 @@ export class EMVCoQR {
     return this.tags
   }
 
+  /* c8 ignore next 3 */
   public getPayload() {
     return this.payload
   }

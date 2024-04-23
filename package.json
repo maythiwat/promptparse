@@ -44,6 +44,8 @@
     "dist/**/*"
   ],
   "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write . && eslint --fix .",
     "build": "rimraf dist && tsup"
@@ -55,12 +57,15 @@
     "@swc/core": "^1.4.13",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "@vitest/coverage-v8": "^1.5.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "tsup": "^8.0.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^1.5.0"
   }
 }

@@ -22,6 +22,7 @@ export function parse(payload: string, strict = false, subTags = true) {
   }
 
   const tags = decode(payload)
+  /* c8 ignore next 3 */
   if (tags.length == 0) {
     return null
   }
