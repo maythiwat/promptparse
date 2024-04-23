@@ -20,5 +20,5 @@ interface Config {
  * @returns Barcode Payload
  */
 export function botBarcode({ billerId, ref1, ref2, amount }: Config) {
-  return new BOTBarcode(billerId, ref1, ref2, amount)
+  return new BOTBarcode(billerId, ref1, ref2, amount).toString()
 }
