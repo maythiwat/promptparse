@@ -118,6 +118,9 @@ const payload = botBarcode.toQrTag30()
 - [Slip Verify API Mini QR Data](https://developer.scb/assets/documents/documentation/qr-payment/extracting-data-from-mini-qr.pdf)
 - [BOT Barcode Standard](https://www.bot.or.th/content/dam/bot/documents/th/our-roles/payment-systems/about-payment-systems/Std_Barcode.pdf)
 
+## See also
+- [phoomin2012/promptparse-php](https://github.com/phoomin2012/promptparse-php) PromptParse port for PHP
+
 ## License
 
 This project is MIT licensed (see [LICENSE.md](LICENSE.md))
