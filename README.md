@@ -46,9 +46,9 @@ withCrcTag(encode(data), '63') // Returns '000201010211...'
 ### Generate PromptPay Bill Payment QR
 
 ```ts
-import { generate } from 'promptparse'
+import { billPayment } from 'promptparse/generate'
 
-const payload = generate.billPayment({
+const payload = billPayment({
   billerId: '1xxxxxxxxxxxx',
   amount: 300.0,
   ref1: 'INV12345',
@@ -60,9 +60,9 @@ const payload = generate.billPayment({
 ### Validate & extract data from Slip Verify QR
 
 ```ts
-import { validate } from 'promptparse'
+import { slipVerify } from 'promptparse/validate'
 
-const data = validate.slipVerify('00550006000001...')
+const data = slipVerify('00550006000001...')
 
 if (!data) {
   console.error('Invalid Payload')

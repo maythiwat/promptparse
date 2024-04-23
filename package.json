@@ -1,6 +1,6 @@
 {
   "name": "promptparse",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "All-in-one JS library for PromptPay & EMVCo QR Codes",
   "author": "Maythiwat Chomchuen <maythiwat.chom@gmail.com>",
   "license": "MIT",
@@ -24,9 +24,21 @@
   "module": "dist/index.mjs",
   "browser": "dist/index.global.js",
   "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.js",
-    "types": "./dist/index.d.ts"
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./generate": {
+      "import": "./dist/generate/index.mjs",
+      "require": "./dist/generate/index.js",
+      "types": "./dist/generate/index.d.ts"
+    },
+    "./validate": {
+      "import": "./dist/validate/index.mjs",
+      "require": "./dist/validate/index.js",
+      "types": "./dist/validate/index.d.ts"
+    }
   },
   "files": [
     "dist/**/*"
