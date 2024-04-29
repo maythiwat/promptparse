@@ -105,7 +105,7 @@ const payload = botBarcode.toQrTag30()
 
     // Quick & dirty way to show QR Code image
     document.write(
-      `<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${payload}">`,
+      `<img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${payload}">`,
     )
   })()
 </script>
@@ -119,6 +119,7 @@ const payload = botBarcode.toQrTag30()
 - [BOT Barcode Standard](https://www.bot.or.th/content/dam/bot/documents/th/our-roles/payment-systems/about-payment-systems/Std_Barcode.pdf)
 
 ## See also
+
 - [phoomin2012/promptparse-php](https://github.com/phoomin2012/promptparse-php) PromptParse port for PHP
 
 ## License
