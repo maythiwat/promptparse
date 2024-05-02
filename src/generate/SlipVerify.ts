@@ -1,6 +1,6 @@
 import { encode, tag, withCrcTag } from '@/lib/tlv'
 
-interface Config {
+export interface SlipVerifyConfig {
   /** Bank code */
   sendingBank: string
 
@@ -15,7 +15,7 @@ interface Config {
  *
  * @returns QR Code Payload
  */
-export function slipVerify({ sendingBank, transRef }: Config) {
+export function slipVerify({ sendingBank, transRef }: SlipVerifyConfig) {
   const payload = [
     tag(
       '00',

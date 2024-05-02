@@ -1,6 +1,6 @@
 import { BOTBarcode } from '@/lib/BOTBarcode'
 
-interface Config {
+export interface BOTBarcodeConfig {
   /** Biller ID (Tax ID + Suffix) */
   billerId: string
 
@@ -19,6 +19,6 @@ interface Config {
  *
  * @returns Barcode Payload
  */
-export function botBarcode({ billerId, ref1, ref2, amount }: Config) {
+export function botBarcode({ billerId, ref1, ref2, amount }: BOTBarcodeConfig) {
   return new BOTBarcode(billerId, ref1, ref2, amount).toString()
 }

@@ -1,6 +1,6 @@
 import { encode, tag, withCrcTag } from '@/lib/tlv'
 
-interface Config {
+export interface BillPaymentConfig {
   /** Biller ID (National ID or Tax ID + Suffix) */
   billerId: string
 
@@ -22,7 +22,13 @@ interface Config {
  *
  * @returns QR Code Payload
  */
-export function billPayment({ billerId, amount, ref1, ref2, ref3 }: Config) {
+export function billPayment({
+  billerId,
+  amount,
+  ref1,
+  ref2,
+  ref3,
+}: BillPaymentConfig) {
   const tag30 = [
     tag('00', 'A000000677010112'),
     tag('01', billerId),
@@ -42,7 +48,7 @@ export function billPayment({ billerId, amount, ref1, ref2, ref3 }: Config) {
   ]
 
   if (amount) {
-    payload.push(tag('54', amount.toFixed(2)))
+    payload.push(tag('54', Number(amount).toFixed(2)))
   }
 
   if (ref3) {

@@ -1,6 +1,6 @@
 import { encode, tag, withCrcTag } from '@/lib/tlv'
 
-enum ProxyType {
+export enum ProxyType {
   /** Mobile number */
   'MSISDN' = '01',
 
@@ -14,7 +14,7 @@ enum ProxyType {
   'BANKACC' = '04',
 }
 
-interface Config {
+export interface AnyIDConfig {
   /** Proxy type */
   type: keyof typeof ProxyType
 
@@ -30,7 +30,7 @@ interface Config {
  *
  * @returns QR Code Payload
  */
-export function anyId({ type, target, amount }: Config) {
+export function anyId({ type, target, amount }: AnyIDConfig) {
   if (type == 'MSISDN') {
     target = ('0000000000000' + target.replace(/^0/, '66')).slice(-13)
   }
@@ -49,7 +49,7 @@ export function anyId({ type, target, amount }: Config) {
   ]
 
   if (amount) {
-    payload.push(tag('54', amount.toFixed(2)))
+    payload.push(tag('54', Number(amount).toFixed(2)))
   }
 
   return withCrcTag(encode(payload), '63')

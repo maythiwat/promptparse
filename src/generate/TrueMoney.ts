@@ -1,24 +1,7 @@
 import { encode, tag, withCrcTag } from '@/lib/tlv'
+import { encodeTag81 } from '@/utils/encoder'
 
-/**
- * Generate an `UCS-2`-like? Hex string for Tag 81
- *
- * This method is equivalent to:
- *
- * `Buffer.from(message, 'utf16le').swap16().toString('hex').toUpperCase()`
- *
- * @param message - Message
- * @returns Hex string of provided message
- */
-function encodeTag81(message: string) {
-  return message
-    .split('')
-    .map((c) => c.charCodeAt(0).toString(16).padStart(4, '0'))
-    .join('')
-    .toUpperCase()
-}
-
-interface Config {
+export interface TrueMoneyConfig {
   /** Mobile number */
   mobileNo: string
 
@@ -38,7 +21,7 @@ interface Config {
  *
  * @returns QR Code Payload
  */
-export function truemoney({ mobileNo, amount, message }: Config) {
+export function trueMoney({ mobileNo, amount, message }: TrueMoneyConfig) {
   const tag29 = encode([
     tag('00', 'A000000677010111'),
     tag('03', `14000${mobileNo}`),
@@ -53,7 +36,7 @@ export function truemoney({ mobileNo, amount, message }: Config) {
   ]
 
   if (amount) {
-    payload.push(tag('54', amount.toFixed(2)))
+    payload.push(tag('54', Number(amount).toFixed(2)))
   }
 
   if (message) {
