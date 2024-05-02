@@ -66,7 +66,7 @@ test('Generate Slip Verify', () => {
 
 test('Generate TrueMoney QR', () => {
   expect(
-    generate.truemoney({
+    generate.trueMoney({
       mobileNo: '0801111111',
     }),
   ).toBe(
@@ -76,7 +76,7 @@ test('Generate TrueMoney QR', () => {
 
 test('Generate TrueMoney QR with amount and message', () => {
   expect(
-    generate.truemoney({
+    generate.trueMoney({
       mobileNo: '0801111111',
       amount: 10.05,
       message: 'Hello World!',

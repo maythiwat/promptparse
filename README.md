@@ -97,7 +97,7 @@ const payload = botBarcode.toQrTag30()
 <script>
   ;(function () {
     // Generate QR code payload (use function from "promptparse" global)
-    const payload = promptparse.generate.truemoney({
+    const payload = promptparse.generate.trueMoney({
       mobileNo: '08xxxxxxxx',
       amount: 10.0,
       message: 'Hello World!',
