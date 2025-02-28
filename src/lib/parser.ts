@@ -16,7 +16,7 @@ export function parse(payload: string, strict = false, subTags = true) {
   }
 
   if (strict) {
-    const expected = payload.slice(-4)
+    const expected = payload.slice(-4).toUpperCase()
     const calculated = checksum(payload.slice(0, -4))
     if (expected != calculated) return null
   }

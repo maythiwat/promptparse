@@ -66,11 +66,13 @@ export function encode(tags: TLVTag[]) {
  * Generate CRC Checksum for provided string
  *
  * @param payload - Any string
+ * @param upperCase - Return CRC Checksum as uppercase string
  * @returns CRC Checksum
  */
-export function checksum(payload: string) {
+export function checksum(payload: string, upperCase = true) {
   let sum = crc16xmodem(payload, 0xffff).toString(16)
-  sum = ('0000' + sum.toUpperCase()).slice(-4)
+  sum = upperCase ? sum.toUpperCase() : sum.toLowerCase()
+  sum = ('0000' + sum).slice(-4)
   return sum
 }
 
@@ -79,12 +81,17 @@ export function checksum(payload: string) {
  *
  * @param payload - TLV string (without CRC Tag)
  * @param crcTagId - CRC Tag ID
+ * @param upperCase - Return CRC Checksum as uppercase string
  * @returns TLV string + CRC Tag ID + CRC Length + CRC Checksum
  */
-export function withCrcTag(payload: string, crcTagId: string) {
+export function withCrcTag(
+  payload: string,
+  crcTagId: string,
+  upperCase = true,
+) {
   payload += ('00' + crcTagId).slice(-2)
   payload += '04'
-  payload += checksum(payload)
+  payload += checksum(payload, upperCase)
   return payload
 }
 
