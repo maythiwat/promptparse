@@ -1,6 +1,6 @@
 {
   "name": "promptparse",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "All-in-one JS library for PromptPay & EMVCo QR Codes",
   "author": "Maythiwat Chomchuen <maythiwat.chom@gmail.com>",
   "license": "MIT",
