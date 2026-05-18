@@ -1,3 +1,5 @@
 export * from './bcel/BCELOneProof'
+export * from './promptpay/AnyID'
+export * from './promptpay/BillPayment'
 export * from './promptpay/SlipVerify'
 export * from './truemoney/TrueMoneySlipVerify'

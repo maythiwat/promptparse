@@ -174,3 +174,71 @@ test('Convert BOT Barcode to Bill Payment (Invalid, data loss)', () => {
     parseBarcode('|099400016550100\r123456789012\r670429')?.toQrTag30(),
   ).toBeFalsy()
 })
+
+test('Validate AnyID (MSISDN, no amount)', () => {
+  expect(
+    validate.anyId(
+      generate.anyId({ type: 'MSISDN', target: '0812223333' }),
+    ),
+  ).toEqual({ type: 'MSISDN', target: '0812223333' })
+})
+
+test('Validate AnyID (MSISDN, with amount)', () => {
+  expect(
+    validate.anyId(
+      generate.anyId({ type: 'MSISDN', target: '0812223333', amount: 30 }),
+    ),
+  ).toEqual({ type: 'MSISDN', target: '0812223333', amount: 30 })
+})
+
+test('Validate AnyID (NATID)', () => {
+  expect(
+    validate.anyId(
+      generate.anyId({ type: 'NATID', target: '1234567890123' }),
+    ),
+  ).toEqual({ type: 'NATID', target: '1234567890123' })
+})
+
+test('Validate AnyID (Invalid, slip verify payload)', () => {
+  expect(
+    validate.anyId(
+      '004000060000010103002021900021231231212000115102TH91049C30',
+    ),
+  ).toBeFalsy()
+})
+
+test('Validate Bill Payment (no optional fields)', () => {
+  expect(
+    validate.billPayment(
+      generate.billPayment({ billerId: '0112233445566', ref1: 'CUSTOMER001' }),
+    ),
+  ).toEqual({ billerId: '0112233445566', ref1: 'CUSTOMER001' })
+})
+
+test('Validate Bill Payment (with ref2, ref3 and amount)', () => {
+  expect(
+    validate.billPayment(
+      generate.billPayment({
+        billerId: '0112233445566',
+        ref1: 'CUSTOMER001',
+        ref2: 'INV001',
+        ref3: 'SCB',
+        amount: 250,
+      }),
+    ),
+  ).toEqual({
+    billerId: '0112233445566',
+    ref1: 'CUSTOMER001',
+    ref2: 'INV001',
+    ref3: 'SCB',
+    amount: 250,
+  })
+})
+
+test('Validate Bill Payment (Invalid, AnyID payload)', () => {
+  expect(
+    validate.billPayment(
+      generate.anyId({ type: 'MSISDN', target: '0812223333' }),
+    ),
+  ).toBeFalsy()
+})
