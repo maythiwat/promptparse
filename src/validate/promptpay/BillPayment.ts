@@ -14,7 +14,12 @@ export function billPayment(payload: string) {
   const billerId = ppqr?.getTagValue('30', '01')
   const ref1 = ppqr?.getTagValue('30', '02')
 
-  if (aidType !== '01' || tag30Aid !== 'A000000677010112' || !billerId || !ref1) {
+  if (
+    aidType !== '01' ||
+    tag30Aid !== 'A000000677010112' ||
+    !billerId ||
+    !ref1
+  ) {
     return null
   }
 

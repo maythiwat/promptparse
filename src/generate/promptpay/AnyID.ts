@@ -2,16 +2,16 @@ import { encode, tag, withCrcTag } from '@/lib/tlv'
 
 export enum ProxyType {
   /** Mobile number */
-  'MSISDN' = '01',
+  MSISDN = '01',
 
   /** National ID or Tax ID */
-  'NATID' = '02',
+  NATID = '02',
 
   /** E-Wallet ID */
-  'EWALLETID' = '03',
+  EWALLETID = '03',
 
   /** Bank Account (Reserved) */
-  'BANKACC' = '04',
+  BANKACC = '04',
 }
 
 export interface AnyIDConfig {
