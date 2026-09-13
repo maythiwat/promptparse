@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 
-import { parse, generate, validate, parseBarcode } from '.'
+import { parse, generate, validate, parseBarcode, checksum } from '.'
 
 test('Invalid string passed to parser', () => {
   expect(parse('AAAA0000')).toBeFalsy()
@@ -177,9 +177,7 @@ test('Convert BOT Barcode to Bill Payment (Invalid, data loss)', () => {
 
 test('Validate AnyID (MSISDN, no amount)', () => {
   expect(
-    validate.anyId(
-      generate.anyId({ type: 'MSISDN', target: '0812223333' }),
-    ),
+    validate.anyId(generate.anyId({ type: 'MSISDN', target: '0812223333' })),
   ).toEqual({ type: 'MSISDN', target: '0812223333' })
 })
 
@@ -193,9 +191,7 @@ test('Validate AnyID (MSISDN, with amount)', () => {
 
 test('Validate AnyID (NATID)', () => {
   expect(
-    validate.anyId(
-      generate.anyId({ type: 'NATID', target: '1234567890123' }),
-    ),
+    validate.anyId(generate.anyId({ type: 'NATID', target: '1234567890123' })),
   ).toEqual({ type: 'NATID', target: '1234567890123' })
 })
 
@@ -241,4 +237,22 @@ test('Validate Bill Payment (Invalid, AnyID payload)', () => {
       generate.anyId({ type: 'MSISDN', target: '0812223333' }),
     ),
   ).toBeFalsy()
+})
+
+test('Checksum of UTF-8 string (2-byte, 3-byte and 4-byte sequences)', () => {
+  expect(checksum('Café')).toBe('8FDF')
+  expect(checksum('ร้านทดสอบ')).toBe('1EA0')
+  expect(checksum('a\u{1F600}b')).toBe('BF6B')
+})
+
+test('Checksum of string with unpaired surrogate', () => {
+  expect(checksum('lone\uD800x')).toBe('64F6')
+})
+
+test('Parse payload (strict) with UTF-8 merchant name', () => {
+  const payload =
+    '00020101021129370016A0000006770101110113006681222333353037645802TH5927ร้านทดสอบ6021กรุงเทพ630488F4'
+
+  expect(parse(payload, true)).toBeTruthy()
+  expect(parse(payload.slice(0, -4) + 'FFFF', true)).toBeFalsy()
 })
