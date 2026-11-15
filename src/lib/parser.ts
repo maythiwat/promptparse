@@ -22,21 +22,22 @@ export function parse(payload: string, strict = false, subTags = true) {
   }
 
   const tags = decode(payload)
-  /* c8 ignore next 3 */
   if (tags.length == 0) {
+    return null
+  }
+
+  if (strict && tags[tags.length - 1].length != 4) {
     return null
   }
 
   if (subTags) {
     for (const tag of tags) {
-      if (typeof tag.value !== 'string' || !tag.value.match(/^\d{4}.+/)) {
+      if (!tag.value.match(/^\d{4}.+/)) {
         continue
       }
 
       const sub = decode(tag.value)
-      if (
-        sub.every((val) => val.length > 0 && val.length === val.value.length)
-      ) {
+      if (sub.length > 0) {
         tag.subTags = sub
       }
     }

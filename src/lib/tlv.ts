@@ -17,20 +17,30 @@ export interface TLVTag {
 /**
  * Decode TLV string into array of TLV Tags
  *
+ * Lengths are counted in Unicode characters (code points), as defined in
+ * EMVCo Merchant-Presented QR Specification v1.1, section 4.4.
+ *
  * @param payload - TLV string
- * @returns Array of TLV Tags
+ * @returns Array of TLV Tags, or an empty array if the string is malformed
  */
 export function decode(payload: string) {
+  const chars = Array.from(payload)
   const tags: TLVTag[] = []
 
   let idx = 0
-  while (idx < payload.length) {
-    const data = payload.substring(idx)
+  while (idx < chars.length) {
+    const id = chars.slice(idx, idx + 2).join('')
+    const len = chars.slice(idx + 2, idx + 4).join('')
+    if (!/^\d{2}$/.test(id) || !/^\d{2}$/.test(len)) {
+      return []
+    }
 
-    const id = data.substring(0, 2)
-    const length = parseInt(data.substring(2, 4))
-    const value = data.substring(4, 4 + length)
+    const length = Number(len)
+    if (length < 1 || idx + 4 + length > chars.length) {
+      return []
+    }
 
+    const value = chars.slice(idx + 4, idx + 4 + length).join('')
     tags.push({ id, length, value })
     idx += length + 4
   }
@@ -123,7 +133,7 @@ export function get(tlvTags: TLVTag[], tagId: string, subTagId?: string) {
 export function tag(tagId: string, value: string): TLVTag {
   return {
     id: tagId,
-    length: value.length,
+    length: Array.from(value).length,
     value,
   }
 }
